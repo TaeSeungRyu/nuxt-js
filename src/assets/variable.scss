@@ -1,0 +1,29 @@
+/**
+ * 글로벌하게 사용될 칼라코드 입니다. 
+ * 디자인에서 정의한 키 값을 토대로 칼라코드를 나열 합니다.
+*/
+$main-background: #ffffff;
+$main-color: #3083db;
+$main-hover-color: #395a79;
+$WHITE: #ffffff;
+$BLACK: #000000;
+
+$DISABLED: #d8dbe1;
+$G5: #fdfdfd;
+$WARNING: #ff7e12;
+
+@mixin flex-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$success: #007bff;
+$success-hover: #0056b3;
+$error: #f44336;
+$error-hover: #d32f2f;
+$warning: #ff7e12;
+$warning-hover: #ff6f00;
+$disabled: #d8dbe1;
+$disabled-hover: #c5c5c5;
+$aqua: #91d5ff;
