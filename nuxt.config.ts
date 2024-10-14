@@ -17,10 +17,11 @@ export default defineNuxtConfig({
   },
   modules: [
     // 피니아
-    "@pinia/nuxt", // 피니아 플러그인
-    "pinia-plugin-persistedstate/nuxt", //nuxt 프록시 모듈
+    // 피니아 플러그인
+    "@pinia/nuxt", //nuxt 프록시 모듈
+    "pinia-plugin-persistedstate/nuxt",
     "@nuxt-alt/proxy",
-    "@sidebase/nuxt-auth",
+    "nuxt-auth-utils",
   ],
   pages: true,
   ssr: true,
@@ -28,21 +29,15 @@ export default defineNuxtConfig({
     public: {
       NUXT_PORT: Number(process.env.NUXT_PORT) || 3000,
     },
+    session: {
+      maxAge: 60 * 60 * 24 * 1, // 1 week
+    },
   },
   components: {
     dirs: ["~/components"],
   },
   pinia: {
     storesDirs: ["~/stores/**"],
-  },
-  auth: {
-    baseURL: process.env.AUTH_ORIGIN,
-    provider: {
-      type: "authjs",
-      trustHost: false,
-      defaultProvider: "credentials",
-      addDefaultCallbackUrl: false,
-    },
   },
   nitro: {
     routeRules: {

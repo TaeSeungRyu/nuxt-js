@@ -1,14 +1,18 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { status, getSession } = useAuth();
+  const { loggedIn, session, fetch } = useUserSession();
+
+  await fetch();
   const isNotAuth = to.path === "/" || to.path === "/signin";
   //console.log("status.value:", status.value, isNotAuth);
-  if (!isNotAuth && status.value === "unauthenticated") {
+  if (!isNotAuth && !loggedIn?.value) {
     return navigateTo("/signin");
   }
   // console.log(status.value);
-  const sss = await getSession();
-  if (!sss.role) {
-    return navigateTo("/signin");
+  if (!isNotAuth && loggedIn?.value) {
+    const user = session.value.user;
+    if (!user) {
+      return navigateTo("/signin");
+    }
   }
   // if (!sss.role || sss.role === "ROLE") {
   //   return navigateTo("/signin");

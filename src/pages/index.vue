@@ -1,15 +1,15 @@
 <script setup>
 import { useSearchStore } from "~/stores/test";
+const { clear } = useUserSession();
 
 const stateTest = useSearchStore();
 
-const { signIn, signOut } = useAuth();
+//const { signIn, signOut } = useAuth();
 
 onMounted(() => {
   console.log("onMounted");
-  signOut({ redirect: false }).then((arg) => {
-    console.log("signOut", arg);
-  });
+  clear();
+
   //stateTest.setStatus("test", "a", "b");
 });
 const router = useRouter();

@@ -1,12 +1,16 @@
-import { getServerSession } from "#auth";
-
 export default eventHandler(async (event) => {
-  const session: any = await getServerSession(event);
-  if (session && session.accessToken) {
-    const token = session.accessToken;
+  const session = await getUserSession(event);
+  if (session && session.user && session.user) {
+    const user: any = session.user;
+    const token: any = user?.token;
     event.node.req.headers["Authorization"] = `Bearer ${token}`;
   }
-  event.node.res.on("finish", () => {
-    //console.log("req end", event.node.res.statusCode);
-  });
+  //const { loggedIn, user, session, fetch, clear } = useUserSession();
+  // if (session && user && user?.value) {
+  //   const token = user?.value;
+  //   event.node.req.headers["Authorization"] = `Bearer ${token}`;
+  // }
+  // event.node.res.on("finish", () => {
+  //   //console.log("req end", event.node.res.statusCode);
+  // });
 });

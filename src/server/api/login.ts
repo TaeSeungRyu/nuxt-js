@@ -3,10 +3,12 @@ import { getRequestURL, readBody } from "h3";
 
 export default defineEventHandler(async (event) => {
   const currentUrl = getRequestURL(event);
+  //const session = getUserSession(event);
   try {
     const params = await readBody(event);
-    console.log("event", event.req.headers);
+    //console.log("event", event.req.headers);
     // 비동기 요청을 처리하기 위해 await를 사용합니다.
+    //console.log(currentUrl.origin);
     const res = await ofetch(`${currentUrl.origin}/serverApi/login`, {
       method: "POST",
       headers: {
@@ -21,6 +23,14 @@ export default defineEventHandler(async (event) => {
       // 토큰을 저장합니다.
       //console.log(res.data.accessToken);
     }
+    await setUserSession(event, {
+      user: {
+        name: res.data.name,
+        role: res.data.role,
+        token: res.data.accessToken,
+      },
+      secure: res.data.accessToken,
+    });
     return {
       aaa: 1234,
       response: res,

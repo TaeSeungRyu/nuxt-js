@@ -3,7 +3,6 @@ const router = useRouter();
 
 definePageMeta({
   layout: false,
-  middleware: ["auth"],
 });
 const movePage = () => {
   router.push("/signin");

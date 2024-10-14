@@ -79,12 +79,16 @@ const display = computed(() => {
 
 //nuxt-auth
 //definePageMeta({ auth: false });
-const { signIn, signOut } = useAuth();
+const config = useRuntimeConfig();
+const authBaseUrl = config.public.authBaseUrl;
+
 const testSignin = async () => {
-  const result = await signIn("credentials", {
-    username: "fi000001",
-    password: "admin1234!",
-    redirect: false,
+  const result = await useCustomFetch("/api/login", {
+    method: "post",
+    body: JSON.stringify({
+      username: "fi000001",
+      password: "admin1234!",
+    }),
   });
   console.log("result : ", result);
   // if (result.status === 200) {
