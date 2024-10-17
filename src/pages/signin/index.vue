@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useSearchStore } from "~/stores/test";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/vue-query";
 const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ const dttt = reactive({
 provide("_data", dttt);
 
 const stateTest = useSearchStore();
-console.log("state :::: ", stateTest.list);
+//console.log("state :::: ", stateTest.list);
 
 // const testProxy = async () => {
 //   mutate({ username: "fi000001", password: "admin1234!" });
@@ -32,23 +32,10 @@ const { data: dt, error } = useQuery({
       return res.data;
     });
   },
-  keepPreviousData: true,
   refetchOnWindowFocus: false,
   staleTime: 5000,
   enabled: enabled,
 });
-// const loginAction = async ({ username, password }) => {
-//   return await $fetch("/api/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       username,
-//       password,
-//     }),
-//   });
-// };
 // const { mutate, isLoading, isError, data } = useMutation({
 //   mutationFn: loginAction,
 //   onMutate: (variables) => {},
@@ -103,20 +90,29 @@ const ssssss = () => {
 const gggggg = () => {
   useCustomFetch("/serverApi/cookie", { method: "get" });
 };
+const testProxy = async () => {
+  const result = await useCustomFetch("/serverApi/provider");
+  console.log("result : ", result);
+};
 </script>
 <template>
   <div style="padding: 1rem">
     queryKeyTargetData : {{ display }} || {{ queryKeyTargetData }}
   </div>
   <img src="~/assets/image.png" />
-  <NuxtLayout :name="head">
+  <NuxtLayout :name="'head'">
     <div>slot header~</div>
   </NuxtLayout>
 
-  <button @click="testSignin">nuxt-auth 사인인</button>
-  <button @click="testProxy">test x proxy</button>
+  <button
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-1 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    @click="testSignin"
+  >
+    nuxt-auth 사인인
+  </button>
+  <button @click="testProxy">로그인 후 헤더 인터셉팅</button>
   <button @click="testLocal">test local</button>
-  <button @click="movePage">rrrrr</button>
+  <button @click="movePage">페이지이동</button>
 
   <button @click="ssssss">set set set</button>
 

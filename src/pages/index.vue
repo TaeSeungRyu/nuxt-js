@@ -1,24 +1,12 @@
-<script setup>
-import { useSearchStore } from "~/stores/test";
+<script setup lang="ts">
+import { useRouter } from "vue-router"; // useRouter import 추가
+
+const router = useRouter(); // router 객체 선언
 const { clear } = useUserSession();
 
-const stateTest = useSearchStore();
-
-//const { signIn, signOut } = useAuth();
-
 onMounted(() => {
-  console.log("onMounted");
   clear();
-
-  //stateTest.setStatus("test", "a", "b");
-});
-const router = useRouter();
-const movePage = () => {
   router.push("/signin");
-};
+});
 </script>
-<template>
-  index
-
-  <button @click="movePage">get get get</button>
-</template>
+<template></template>

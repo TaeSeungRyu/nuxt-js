@@ -1,3 +1,4 @@
+//권한에 따른 접근 제어
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const { loggedIn, session, fetch } = useUserSession();
 

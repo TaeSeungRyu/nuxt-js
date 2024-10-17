@@ -1,4 +1,3 @@
-import type { UseFetchOptions } from "#app";
 import { ofetch } from "ofetch";
 
 export const useCustomFetch = (url: string, options?: any) => {
@@ -6,6 +5,9 @@ export const useCustomFetch = (url: string, options?: any) => {
     ...options,
     async onResponse({ request, response, options }) {
       console.log("[fetch response]");
+      if (response.status === 401) {
+        console.log("401 error");
+      }
     },
     async onResponseError({ request, response, options }) {
       console.log("[fetch response error]");
@@ -14,21 +16,4 @@ export const useCustomFetch = (url: string, options?: any) => {
       console.log("[fetch request]");
     },
   });
-
-  // return useFetch(url, {
-  //   ...options,
-  //   async onResponse({ request, response, options }) {
-  //     console.log("[fetch response]");
-  //   },
-  //   async onResponseError({ request, response, options }) {
-  //     console.log("[fetch response error]");
-  //   },
-
-  //   async onRequest({ request, options }) {
-  //     console.log("[fetch request]");
-  //   },
-  //   async onRequestError({ request, options, error }) {
-  //     console.log("[fetch request error]");
-  //   },
-  // });
 };

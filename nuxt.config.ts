@@ -7,7 +7,7 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { charset: "utf-8" },
       ],
-      title: "hello world",
+      title: "타이틀",
     },
   },
   srcDir: "src/",
@@ -16,12 +16,11 @@ export default defineNuxtConfig({
     renderJsonPayloads: false,
   },
   modules: [
-    // 피니아
-    // 피니아 플러그인
-    "@pinia/nuxt", //nuxt 프록시 모듈
+    "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "@nuxt-alt/proxy",
     "nuxt-auth-utils",
+    "@nuxtjs/tailwindcss",
   ],
   pages: true,
   ssr: true,
@@ -30,7 +29,7 @@ export default defineNuxtConfig({
       NUXT_PORT: Number(process.env.NUXT_PORT) || 3000,
     },
     session: {
-      maxAge: 60 * 60 * 24 * 1, // 1 week
+      maxAge: 60 * 30 * 1, // 30분
     },
   },
   components: {
@@ -64,6 +63,13 @@ export default defineNuxtConfig({
       },
     },
   },
+  tailwindcss: {
+    exposeConfig: {
+      level: 1,
+    },
+    config: {},
+    viewer: false,
+  },
   vite: {
     vue: {
       customElement: true,
@@ -80,6 +86,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           api: "modern-compiler", // or "modern"
+          silenceDeprecations: ["legacy-js-api"],
           additionalData: '@import "@/assets/variable.scss";',
         },
       },

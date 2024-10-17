@@ -1,3 +1,4 @@
+//헤더에 토큰을 넣어주는 미들웨어
 export default eventHandler(async (event) => {
   const session = await getUserSession(event);
   if (session && session.user && session.user) {
