@@ -73,8 +73,8 @@ const testSignin = async () => {
   const result = await useCustomFetch("/api/login", {
     method: "post",
     body: JSON.stringify({
-      username: "fi000001",
-      password: "admin1234!",
+      username: "fefea",
+      password: "aaad!",
     }),
   });
   console.log("result : ", result);

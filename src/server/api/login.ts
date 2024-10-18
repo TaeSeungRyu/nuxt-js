@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     //console.log("event", event.req.headers);
     // 비동기 요청을 처리하기 위해 await를 사용합니다.
     //console.log(currentUrl.origin);
+
     const res = await ofetch(`${currentUrl.origin}/serverApi/login`, {
       method: "POST",
       headers: {
