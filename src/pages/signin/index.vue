@@ -116,112 +116,26 @@ const testProxy = async () => {
 
   <button @click="ssssss">set set set</button>
 
-  <button @click="gggggg">get get get</button>
+  <button class="test-btn" @click="gggggg">test-btnget get get</button>
+  <div>1</div>
+  <div>1</div>
+  <div
+    class="bg-clip-content p-6 bg-violet-600 border-4 border-violet-300 border-dashed"
+  ></div>
+  <div>1</div>
+  <div
+    class="bg-clip-padding p-6 bg-violet-600 border-4 border-violet-300 border-dashed"
+  ></div>
+  <div>1</div>
+  <div
+    class="bg-clip-border p-6 bg-violet-600 border-4 border-violet-300 border-dashed"
+  ></div>
+  <div class="text-5xl font-extrabold ...">
+    <span
+      class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500"
+    >
+      Hello world
+    </span>
+  </div>
 </template>
-
-<!-- <script setup lang="ts">
-import { ref } from "vue";
-import {
-  useQuery,
-  keepPreviousData,
-  useQueryClient,
-} from "@tanstack/vue-query";
-const queryClient = useQueryClient();
-
-// 페이지를 기반으로 데이터를 가져오는 함수입니다.
-const fetcher = (page: any) =>
-  fetch(
-    `https://jsonplaceholder.typicode.com/posts?_page=${page.value}&_limit=10`
-  ).then((response) => response.json());
-
-// 현재 페이지를 나타내는 ref입니다.
-const page = ref(1);
-
-// useQuery 훅을 사용하여 쿼리를 설정합니다.
-const {
-  isPending,
-  isError,
-  data: resultList,
-  error,
-  isFetching,
-  isPlaceholderData,
-} = useQuery({
-  // 쿼리 키는 'projects'와 현재 페이지를 포함합니다.
-  queryKey: ["aaaa", page],
-  // 데이터를 가져오는 함수를 설정합니다.
-  queryFn: () => fetcher(page),
-  // placeholderData 옵션을 사용하여 이전 데이터를 유지합니다.
-  placeholderData: keepPreviousData,
-  /*
-      또는 아래와 같이 선언
-      placeholderData: (previousData, previousQuery) => previousData
-    */
-});
-
-function ttttt(key: string) {
-  const {
-    isPending,
-    isError,
-    data: resultList,
-    error,
-    isFetching,
-    isPlaceholderData,
-  } = useQuery({
-    queryKey: [key, page],
-    queryFn: () => fetcher(page),
-    placeholderData: keepPreviousData,
-  });
-}
-
-onMounted(() => {
-  let key = "2024-10-08";
-  ttttt("2024-10-08");
-  ttttt("2024-10-07");
-  ttttt("2024-10-08");
-});
-
-// 이전 페이지로 이동하는 함수입니다.
-const prevPage = () => {
-  page.value = Math.max(page.value - 1, 1);
-};
-
-// 다음 페이지로 이동하는 함수입니다.
-const nextPage = () => {
-  // isPlaceholderData가 false인 경우에만 페이지를 증가시킵니다.
-  if (!isPlaceholderData.value) {
-    page.value = page.value + 1;
-  }
-};
-
-//utils
-const result = formatNumber([1, 2, 3]); // 1,000
-console.log("result : ", result);
-
-const config = useRuntimeConfig();
-
-console.log("env test : ", config.public?.NUXT_PORT);
-</script>
-<template>
-  <div>현재 페이지와 placeholderData를 표시합니다.</div>
-  <h1>Posts</h1>
-  <div>configure test : {{ config.public?.NUXT_PORT }}</div>
-  <p>Current Page: {{ page }} | Previous data: {{ isPlaceholderData }}</p>
-  <div>이전 페이지로 이동하는 버튼입니다.</div>
-  <button @click="prevPage">Prev Page</button>
-  <div>다음 페이지로 이동하는 버튼입니다.</div>
-  <button @click="nextPage">Next Page</button>
-  <div>데이터를 로드하는 동안에는 로딩 메시지를 표시합니다.</div>
-  <div v-if="isPending">Loading...</div>
-  <div v-else-if="isError">
-    An error has occurred: {{ error }}
-    <div>에러가 발생한 경우 에러 메시지를 표시합니다.</div>
-  </div>
-  <div v-else-if="resultList">
-    <div>데이터가 있을 경우 데이터를 렌더링합니다.</div>
-    <ul>
-      <li v-for="item in resultList" :key="item.id">
-        {{ item.title }}
-      </li>
-    </ul>
-  </div>
-</template> -->
+<style scoped></style>

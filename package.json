@@ -30,5 +30,8 @@
     "vue": "^3.4.27",
     "vue-router": "^4.3.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47"
+  }
 }

@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["~/assets/global.scss"],
+  css: ["~/assets/global.scss", "~/assets/global-tailwind.css"],
 
   proxy: {
     proxies: {
@@ -75,11 +75,7 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
-    exposeConfig: {
-      level: 1,
-    },
-    config: {},
-    viewer: false,
+    exposeConfig: true,
   },
 
   vite: {
