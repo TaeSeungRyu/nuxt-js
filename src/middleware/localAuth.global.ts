@@ -1,10 +1,9 @@
 //권한에 따른 접근 제어
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { loggedIn, session, fetch } = useUserSession();
+  const { loggedIn, session, fetch, user } = useUserSession();
 
   await fetch();
   const isNotAuth = to.path === "/" || to.path === "/signin";
-  //console.log("status.value:", status.value, isNotAuth);
   if (!isNotAuth && !loggedIn?.value) {
     return navigateTo("/signin");
   }
@@ -15,6 +14,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       return navigateTo("/signin");
     }
   }
+  if (loggedIn?.value && session && session?.value) {
+    console.log(user?.value ?? user); // user가 ref면 value를, 아니면 직접 출력
+  }
+
   // if (!sss.role || sss.role === "ROLE") {
   //   return navigateTo("/signin");
   // }

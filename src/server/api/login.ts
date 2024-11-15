@@ -26,11 +26,12 @@ export default defineEventHandler(async (event) => {
     }
     await setUserSession(event, {
       user: {
-        name: res.data.name,
-        role: res.data.role,
-        token: res.data.accessToken,
+        name: res?.data?.name,
+        role: res?.data?.role,
+        token: res?.data?.accessToken,
+        time: new Date().getTime(),
       },
-      secure: res.data.accessToken,
+      secure: res?.data?.accessToken,
     });
     return {
       aaa: 1234,

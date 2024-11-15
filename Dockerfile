@@ -1,5 +1,5 @@
 #docker build -t finit-s-front .
-#docker run -d --name finit-s-front -p 80:5173 finit-s-front    // 외부:내부
+#docker run -d --name finit-s-front -p 80:80 finit-s-front    // 외부:내부
 # 프로젝트의 빌드된 파일만 복사
 # 빌드 단계: 애플리케이션을 빌드하기 위한 환경 설정
 FROM node:22.9.0-alpine AS build-stage
@@ -29,7 +29,7 @@ WORKDIR /app
 # 빌드된 파일만 복사: 빌드 단계에서 생성된 파일을 복사
 COPY --from=build-stage /app/.output ./
 
-# 5173번 포트 노출: 컨테이너 외부에서 접근할 수 있도록 포트 노출
+#포트 노출: 컨테이너 외부에서 접근할 수 있도록 포트 노출
 EXPOSE 80
 
 # 환경 변수 설정: Nuxt.js 서버가 80번 포트에서 실행되도록 설정

@@ -10,14 +10,11 @@ export default defineNuxtConfig({
       title: "타이틀",
     },
   },
-
   srcDir: "src/",
-  devtools: { enabled: true },
-
+  devtools: { enabled: !true },
   experimental: {
     renderJsonPayloads: false,
   },
-
   modules: [
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
@@ -25,10 +22,8 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "@nuxtjs/tailwindcss",
   ],
-
   pages: true,
   ssr: true,
-
   runtimeConfig: {
     public: {
       NUXT_PORT: Number(process.env.NUXT_PORT) || 3000,
@@ -37,15 +32,12 @@ export default defineNuxtConfig({
       maxAge: 60 * 30 * 1, // 30분
     },
   },
-
   components: {
     dirs: ["~/components"],
   },
-
   pinia: {
     storesDirs: ["~/stores/**"],
   },
-
   nitro: {
     routeRules: {
       "/_nuxt/**": {
@@ -57,9 +49,7 @@ export default defineNuxtConfig({
       gzip: true,
     },
   },
-
   css: ["~/assets/global.scss", "~/assets/global-tailwind.css"],
-
   proxy: {
     proxies: {
       "/serverApi": {
@@ -73,11 +63,9 @@ export default defineNuxtConfig({
       },
     },
   },
-
   tailwindcss: {
     exposeConfig: true,
   },
-
   vite: {
     vue: {
       customElement: true,
@@ -100,6 +88,5 @@ export default defineNuxtConfig({
       },
     },
   },
-
   compatibilityDate: "2024-10-18",
 });

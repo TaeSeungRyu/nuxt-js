@@ -1,6 +1,16 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["pinia-plugin-persistedstate", "nuxt-multi-cache"]
+    "target": "ESNext",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "types": ["pinia-plugin-persistedstate", "nuxt-multi-cache"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   }
 }

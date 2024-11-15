@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useSearchStore } from "~/stores/test";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/vue-query";
+import { DataStructure, TYPE } from "~/type";
+import ComponentBuilder from "~/components/ComponentBuilder.vue";
 const queryClient = useQueryClient();
 
 const router = useRouter();
@@ -94,12 +96,41 @@ const testProxy = async () => {
   const result = await useCustomFetch("/serverApi/provider");
   console.log("result : ", result);
 };
+
+const testObject = new DataStructure({
+  value: ref("1a"),
+  type: TYPE.TEXT,
+  require: true,
+  option: reactive({
+    skip: false,
+    disabled: false,
+    error: false,
+    smallType: true,
+    success: false,
+    placeholder: "",
+    hideRight: !true,
+    style: { width: "100%", height: "2.25rem", padding: "0rem 0.5rem" },
+    change(event: any, data: any, that: any) {
+      //console.log("change", event, data, that);
+      console.log("change");
+    },
+  }),
+});
+
+setTimeout(() => {
+  testObject.value.value = "asdfasdf";
+  console.log("settimeout");
+}, 2000);
 </script>
 <template>
+  <div>
+    <div>value : {{ testObject.value }}</div>
+    <ComponentBuilder :data="testObject" />
+  </div>
   <div style="padding: 1rem">
     queryKeyTargetData : {{ display }} || {{ queryKeyTargetData }}
   </div>
-  <img src="~/assets/image.png" />
+  <img src="~/assets/img/image.png" />
   <NuxtLayout :name="'head'">
     <div>slot header~</div>
   </NuxtLayout>
