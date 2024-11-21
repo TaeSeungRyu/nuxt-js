@@ -1,23 +1,48 @@
 <script setup lang="ts">
 import "@/assets/input.scss";
-import { inject, ref, watchEffect } from "vue";
+import { inject, ref, watchEffect, onMounted } from "vue";
 import { DataStructure } from "@/type";
 import { inputRightRemover, inputRightError } from "@/assets/svg/input";
 const datafromParent = inject<DataStructure>("data");
 const inputValue = ref(`${datafromParent?.value?.value}`);
-
+const triggerValue = ref("");
 const isInputFocus = ref(false);
 const isMouseOver = ref(false);
 
+onMounted(() => {
+  try {
+    if (!inputValue.value || isNaN(Number(inputValue.value))) {
+      inputValue.value = "";
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+const setValueAction = ($event?: any, parentValueFromForced?: any) => {
+  if (datafromParent) {
+    const keyEventValue = $event?.target?.value;
+    let resultValue = keyEventValue || parentValueFromForced;
+    datafromParent.value.value = resultValue;
+    console.log("setValueAction", resultValue);
+    if (keyEventValue) {
+      $event.target.value = resultValue;
+    }
+    if (datafromParent?.option?.change) {
+      datafromParent.option.change($event, resultValue, datafromParent);
+    }
+    triggerValue.value = randomString(10);
+  }
+};
+
 const setKeyAction = ($event: any) => {
   if ($event.keyCode !== 9 && datafromParent !== undefined) {
-    datafromParent.value.value = $event?.target?.value;
-    if (datafromParent?.option?.change) {
-      datafromParent.option.change(
-        $event,
-        $event?.target?.value,
-        datafromParent
-      );
+    if (!isNaN(Number($event?.target?.value))) {
+      setValueAction($event);
+    } else {
+      $event.target.value = $event.target.value.replace(/[^0-9]/g, "");
+      datafromParent.value.value = $event?.target?.value;
+      triggerValue.value = randomString(10);
     }
   }
 };
@@ -41,8 +66,17 @@ const setMouseOver = (over: boolean) => {
 };
 
 watchEffect(() => {
-  if (datafromParent?.value?.value != undefined) {
-    inputValue.value = datafromParent.value.value;
+  if (triggerValue.value != undefined && datafromParent) {
+    if (
+      datafromParent?.value?.value?.length > 0 &&
+      isNaN(Number(datafromParent.value.value))
+    ) {
+      inputValue.value = datafromParent.value.value.replace(/[^0-9]/g, "");
+    } else {
+      inputValue.value = datafromParent.value.value;
+    }
+    console.log(" $inputValue", datafromParent.value.value);
+    setValueAction(null, datafromParent.value.value);
   }
 });
 </script>
@@ -81,7 +115,7 @@ watchEffect(() => {
         <inputRightError v-if="datafromParent?.option?.error"></inputRightError>
         <inputRightRemover
           v-else-if="
-            inputValue.length > 0 && !datafromParent?.option?.hideRight
+            inputValue?.length > 0 && !datafromParent?.option?.hideRight
           "
           :class="{ 'cursor-pointer': true }"
           @click.prevent.stop="removeInputValue"
@@ -91,4 +125,4 @@ watchEffect(() => {
     </template>
   </div>
 </template>
-<style scoped></style>
+<style lang="scss" scoped></style>

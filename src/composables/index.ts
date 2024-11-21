@@ -17,3 +17,18 @@ export const useCustomFetch = (url: string, options?: any) => {
     },
   });
 };
+
+/***
+ * 랜덤한 문자열을 반환 합니다(캡차 내부 텍스트용)
+ */
+export function randomString(length: number) {
+  let result = "";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}

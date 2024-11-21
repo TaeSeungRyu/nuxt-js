@@ -17,6 +17,8 @@ const TYPE = {
   TOGGLE: "TOGGLE",
   DROP_FILE: "DROP_FILE",
   TELL: "TELL",
+  home: "home",
+  manage: "manage",
 };
 Object.freeze(TYPE); //객체 불변화(readonly)
 /**
@@ -171,3 +173,18 @@ export type componentType = {
 };
 
 export { TYPE, DataStructure };
+
+/**
+ * 서버에 요청시 사용되는 값의 타입 입니다.
+ * @value {any} 서버에 요청시 사용되는 값
+ * @name {string} 서버에 요청시 사용되는 이름
+ * @desc {string} 설명
+ */
+export type valueObject = {
+  [props: string]: {
+    value: any; //서버에 요청시 사용되는 값
+    name: string; //서버에 요청시 사용되는 이름
+    desc?: string; //설명
+    option?: any; //옵션
+  };
+};

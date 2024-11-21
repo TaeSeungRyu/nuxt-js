@@ -2,12 +2,16 @@
 import "@/assets/input.scss";
 import { inject, ref, watchEffect } from "vue";
 import { DataStructure } from "@/type";
-import { inputRightRemover, inputRightError } from "@/assets/svg/input";
-const datafromParent = inject<DataStructure>("data");
-const inputValue = ref(`${datafromParent?.value?.value}`);
+import { inputRightLock, inputRightUnlock } from "@/assets/svg/input";
 
+const PASSWORD = "password";
+const TEXT = "text";
+
+const datafromParent = inject<DataStructure>("data");
+const inputValue = ref(`${datafromParent?.value.value}`);
 const isInputFocus = ref(false);
 const isMouseOver = ref(false);
+const displayType = ref(PASSWORD);
 
 const setKeyAction = ($event: any) => {
   if ($event.keyCode !== 9 && datafromParent !== undefined) {
@@ -21,12 +25,6 @@ const setKeyAction = ($event: any) => {
     }
   }
 };
-const removeInputValue = () => {
-  inputValue.value = "";
-  if (datafromParent?.value?.value) {
-    datafromParent.value.value = "";
-  }
-};
 const setInputFocus = (focus: boolean) => {
   if (datafromParent?.option?.disabled) {
     return;
@@ -38,6 +36,9 @@ const setMouseOver = (over: boolean) => {
     return;
   }
   isMouseOver.value = over;
+};
+const setDisplayType = () => {
+  displayType.value = displayType.value === PASSWORD ? TEXT : PASSWORD;
 };
 
 watchEffect(() => {
@@ -62,6 +63,7 @@ watchEffect(() => {
   >
     <input
       :class="{
+        'font-small': datafromParent?.option?.smallType,
         'font-error': datafromParent?.option?.error,
         'font-disabled': datafromParent?.option?.disabled,
       }"
@@ -69,8 +71,9 @@ watchEffect(() => {
       :disabled="datafromParent?.option?.disabled"
       :maxlength="datafromParent?.option?.max"
       :minlength="datafromParent?.option?.min"
-      type="text"
+      :type="displayType"
       v-model="inputValue"
+      autocomplete="false"
       @input="setKeyAction"
       @focus="setInputFocus(true)"
       @focusout="setInputFocus(false)"
@@ -78,17 +81,21 @@ watchEffect(() => {
     />
     <template v-if="!datafromParent?.option?.disabled">
       <div class="position-absolute">
-        <inputRightError v-if="datafromParent?.option?.error"></inputRightError>
-        <inputRightRemover
-          v-else-if="
-            inputValue.length > 0 && !datafromParent?.option?.hideRight
-          "
+        <inputRightLock
+          v-if="displayType === PASSWORD"
+          :stroke="datafromParent?.option?.error ? '#EA372A' : '#C8C8C8'"
           :class="{ 'cursor-pointer': true }"
-          @click.prevent.stop="removeInputValue"
-        >
-        </inputRightRemover>
+          @click.prevent.stop="setDisplayType"
+        ></inputRightLock>
+        <inputRightUnlock
+          v-else
+          :stroke="datafromParent?.option?.error ? '#EA372A' : '#C8C8C8'"
+          :class="{ 'cursor-pointer': true }"
+          @click.prevent.stop="setDisplayType"
+        ></inputRightUnlock>
       </div>
     </template>
   </div>
 </template>
-<style scoped></style>
+
+<style lang="scss" scoped></style>

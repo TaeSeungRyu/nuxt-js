@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { fileURLToPath, URL } from "node:url";
+import svgLoader from "vite-svg-loader";
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -20,8 +22,14 @@ export default defineNuxtConfig({
     "pinia-plugin-persistedstate/nuxt",
     "@nuxt-alt/proxy",
     "nuxt-auth-utils",
+    "vue3-perfect-scrollbar/nuxt",
     "@nuxtjs/tailwindcss",
   ],
+  postcss: {
+    plugins: {
+      autoprefixer: {},
+    },
+  },
   pages: true,
   ssr: true,
   runtimeConfig: {
@@ -49,7 +57,7 @@ export default defineNuxtConfig({
       gzip: true,
     },
   },
-  css: ["~/assets/global.scss", "~/assets/global-tailwind.css"],
+  css: ["~/assets/global.scss", "~/assets/global-tailwind.css"], //
   proxy: {
     proxies: {
       "/serverApi": {
@@ -63,12 +71,8 @@ export default defineNuxtConfig({
       },
     },
   },
-  tailwindcss: {
-    exposeConfig: true,
-  },
   vite: {
     vue: {
-      customElement: true,
       script: {
         propsDestructure: true,
       },
@@ -87,6 +91,7 @@ export default defineNuxtConfig({
         },
       },
     },
+    plugins: [svgLoader()],
   },
   compatibilityDate: "2024-10-18",
 });
