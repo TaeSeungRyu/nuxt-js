@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { fileURLToPath, URL } from "node:url";
 import svgLoader from "vite-svg-loader";
+import path from "path";
 
 export default defineNuxtConfig({
   app: {
@@ -9,10 +10,23 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { charset: "utf-8" },
       ],
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css",
+        },
+      ],
       title: "타이틀",
     },
+    pageTransition: {
+      name: "page",
+      mode: "out-in", // default
+    },
   },
+  builder: "vite",
   srcDir: "src/",
+  pages: true,
+  ssr: !true,
   devtools: { enabled: !true },
   experimental: {
     renderJsonPayloads: false,
@@ -30,8 +44,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  pages: true,
-  ssr: true,
   runtimeConfig: {
     public: {
       NUXT_PORT: Number(process.env.NUXT_PORT) || 3000,
@@ -40,12 +52,14 @@ export default defineNuxtConfig({
       maxAge: 60 * 30 * 1, // 30분
     },
   },
-  components: {
-    dirs: ["~/components"],
-  },
+  // components: {
+  //   dirs: ["~/components"],
+  //   global: true,
+  // },
   pinia: {
     storesDirs: ["~/stores/**"],
   },
+
   nitro: {
     routeRules: {
       "/_nuxt/**": {
@@ -80,6 +94,9 @@ export default defineNuxtConfig({
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)), //@ 값 치환
+        "~/pages": path.resolve(__dirname, "./src/pages"),
+        "~/style": path.resolve(__dirname, "./src/style"),
+        "~": path.resolve(__dirname, "./src"),
       },
     },
     css: {

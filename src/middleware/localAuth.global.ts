@@ -3,15 +3,20 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const { loggedIn, session, fetch, user } = useUserSession();
 
   await fetch();
-  const isNotAuth = to.path === "/" || to.path === "/signin";
+  const isNotAuth =
+    to.path === "/" ||
+    to.path === "/account/signin" ||
+    to.path === "/account/find-id" ||
+    to.path === "/account/find-password" ||
+    to.path === "/notice";
   if (!isNotAuth && !loggedIn?.value) {
-    return navigateTo("/signin");
+    return navigateTo("/account/signin");
   }
   // console.log(status.value);
   if (!isNotAuth && loggedIn?.value) {
     const user = session.value.user;
     if (!user) {
-      return navigateTo("/signin");
+      return navigateTo("/account/signin");
     }
   }
   if (loggedIn?.value && session && session?.value) {

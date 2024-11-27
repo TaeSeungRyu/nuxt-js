@@ -32,3 +32,10 @@ export function randomString(length: number) {
   }
   return result;
 }
+
+export function isEmpty(str: string) {
+  if (str === null || str === undefined || str.length === 0) {
+    return true;
+  }
+  return false;
+}

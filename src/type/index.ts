@@ -188,3 +188,18 @@ export type valueObject = {
     option?: any; //옵션
   };
 };
+
+//////메뉴 구조 잡기//////
+export type menuType = {
+  id: number;
+  name: string;
+  url?: string;
+  hideUrl?: Array<string>;
+  icon: string;
+  children?: Array<menuType>;
+  auth?: Array<string>;
+  role?: Array<string>;
+  option?: {
+    show: boolean;
+  };
+};

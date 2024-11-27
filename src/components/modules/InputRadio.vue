@@ -27,41 +27,43 @@ const setRadioStatus = (item: any, index: number) => {
 };
 </script>
 <template>
-  <div
-    :class="{
-      'radio-box-area': true,
-      'add-gap': inputList?.length > 1,
-      'single-check': inputList?.length == 1,
-    }"
-    :style="datafromParent?.option?.containerStyle"
-  >
+  <ClientOnly>
     <div
-      :class="{ 'radio-box-item': true }"
-      v-for="(item, index) in inputList"
-      @click="setRadioStatus(item, index)"
+      :class="{
+        'radio-box-area': true,
+        'add-gap': inputList?.length > 1,
+        'single-check': inputList?.length == 1,
+      }"
+      :style="datafromParent?.option?.containerStyle"
     >
       <div
-        v-if="!datafromParent?.option?.disabled"
-        class="radio-box-can-active-item"
+        :class="{ 'radio-box-item': true }"
+        v-for="(item, index) in inputList"
+        @click="setRadioStatus(item, index)"
       >
-        <radioActive v-if="item.selected"></radioActive>
-        <radioDefault v-else></radioDefault>
-      </div>
-      <radioActiveDisabled
-        v-else-if="datafromParent?.option?.disabled && item.selected"
-      ></radioActiveDisabled>
-      <radioDisabled v-else></radioDisabled>
-      <div
-        v-if="item?.label"
-        :class="{
-          'radio-box-label': true,
-          'small-type': datafromParent?.option?.smallType,
-        }"
-      >
-        {{ item.label }}
+        <div
+          v-if="!datafromParent?.option?.disabled"
+          class="radio-box-can-active-item"
+        >
+          <radioActive v-if="item.selected"></radioActive>
+          <radioDefault v-else></radioDefault>
+        </div>
+        <radioActiveDisabled
+          v-else-if="datafromParent?.option?.disabled && item.selected"
+        ></radioActiveDisabled>
+        <radioDisabled v-else></radioDisabled>
+        <div
+          v-if="item?.label"
+          :class="{
+            'radio-box-label': true,
+            'small-type': datafromParent?.option?.smallType,
+          }"
+        >
+          {{ item.label }}
+        </div>
       </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped>

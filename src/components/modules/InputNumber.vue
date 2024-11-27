@@ -81,48 +81,52 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div
-    :class="{
-      'input-area': true,
-      [datafromParent?.option?.class]: datafromParent?.option?.class,
-      'input-focus': isInputFocus,
-      'input-error': datafromParent?.option?.error,
-      'input-error-mouseover': datafromParent?.option?.error && isMouseOver,
-      'input-disabled': datafromParent?.option?.disabled,
-    }"
-    @mouseover="setMouseOver(true)"
-    @mouseleave="setMouseOver(false)"
-    :style="{ ...datafromParent?.option?.style }"
-  >
-    <input
+  <ClientOnly>
+    <div
       :class="{
-        'font-error': datafromParent?.option?.error,
-        'font-disabled': datafromParent?.option?.disabled,
+        'input-area': true,
+        [datafromParent?.option?.class]: datafromParent?.option?.class,
+        'input-focus': isInputFocus,
+        'input-error': datafromParent?.option?.error,
+        'input-error-mouseover': datafromParent?.option?.error && isMouseOver,
+        'input-disabled': datafromParent?.option?.disabled,
       }"
-      :placeholder="datafromParent?.option?.placeholder"
-      :disabled="datafromParent?.option?.disabled"
-      :maxlength="datafromParent?.option?.max"
-      :minlength="datafromParent?.option?.min"
-      type="text"
-      v-model="inputValue"
-      @input="setKeyAction"
-      @focus="setInputFocus(true)"
-      @focusout="setInputFocus(false)"
-      :style="{ ...datafromParent?.option?.textStyle }"
-    />
-    <template v-if="!datafromParent?.option?.disabled">
-      <div class="position-absolute">
-        <inputRightError v-if="datafromParent?.option?.error"></inputRightError>
-        <inputRightRemover
-          v-else-if="
-            inputValue?.length > 0 && !datafromParent?.option?.hideRight
-          "
-          :class="{ 'cursor-pointer': true }"
-          @click.prevent.stop="removeInputValue"
-        >
-        </inputRightRemover>
-      </div>
-    </template>
-  </div>
+      @mouseover="setMouseOver(true)"
+      @mouseleave="setMouseOver(false)"
+      :style="{ ...datafromParent?.option?.style }"
+    >
+      <input
+        :class="{
+          'font-error': datafromParent?.option?.error,
+          'font-disabled': datafromParent?.option?.disabled,
+        }"
+        :placeholder="datafromParent?.option?.placeholder"
+        :disabled="datafromParent?.option?.disabled"
+        :maxlength="datafromParent?.option?.max"
+        :minlength="datafromParent?.option?.min"
+        type="text"
+        v-model="inputValue"
+        @input="setKeyAction"
+        @focus="setInputFocus(true)"
+        @focusout="setInputFocus(false)"
+        :style="{ ...datafromParent?.option?.textStyle }"
+      />
+      <template v-if="!datafromParent?.option?.disabled">
+        <div class="position-absolute">
+          <inputRightError
+            v-if="datafromParent?.option?.error"
+          ></inputRightError>
+          <inputRightRemover
+            v-else-if="
+              inputValue?.length > 0 && !datafromParent?.option?.hideRight
+            "
+            :class="{ 'cursor-pointer': true }"
+            @click.prevent.stop="removeInputValue"
+          >
+          </inputRightRemover>
+        </div>
+      </template>
+    </div>
+  </ClientOnly>
 </template>
 <style lang="scss" scoped></style>

@@ -3,7 +3,7 @@
 import { useSearchStore } from "~/stores/test";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/vue-query";
 import { DataStructure, TYPE } from "~/type";
-import ComponentBuilder from "~/components/ComponentBuilder.vue";
+
 const queryClient = useQueryClient();
 
 const router = useRouter();

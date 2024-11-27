@@ -6,7 +6,7 @@ const { clear } = useUserSession();
 
 onMounted(() => {
   clear();
-  router.push("/signin");
+  router.push("/account/signin");
 });
 </script>
 <template></template>

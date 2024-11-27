@@ -48,54 +48,56 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div
-    :class="{
-      'input-area': true,
-      [datafromParent?.option?.class]: datafromParent?.option?.class,
-      'input-focus': isInputFocus,
-      'input-error': datafromParent?.option?.error,
-      'input-error-mouseover': datafromParent?.option?.error && isMouseOver,
-      'input-disabled': datafromParent?.option?.disabled,
-    }"
-    @mouseover="setMouseOver(true)"
-    @mouseleave="setMouseOver(false)"
-    :style="{ ...datafromParent?.option?.style }"
-  >
-    <input
+  <ClientOnly>
+    <div
       :class="{
-        'font-small': datafromParent?.option?.smallType,
-        'font-error': datafromParent?.option?.error,
-        'font-disabled': datafromParent?.option?.disabled,
+        'input-area': true,
+        [datafromParent?.option?.class]: datafromParent?.option?.class,
+        'input-focus': isInputFocus,
+        'input-error': datafromParent?.option?.error,
+        'input-error-mouseover': datafromParent?.option?.error && isMouseOver,
+        'input-disabled': datafromParent?.option?.disabled,
       }"
-      :placeholder="datafromParent?.option?.placeholder"
-      :disabled="datafromParent?.option?.disabled"
-      :maxlength="datafromParent?.option?.max"
-      :minlength="datafromParent?.option?.min"
-      :type="displayType"
-      v-model="inputValue"
-      autocomplete="false"
-      @input="setKeyAction"
-      @focus="setInputFocus(true)"
-      @focusout="setInputFocus(false)"
-      :style="{ ...datafromParent?.option?.textStyle }"
-    />
-    <template v-if="!datafromParent?.option?.disabled">
-      <div class="position-absolute">
-        <inputRightLock
-          v-if="displayType === PASSWORD"
-          :stroke="datafromParent?.option?.error ? '#EA372A' : '#C8C8C8'"
-          :class="{ 'cursor-pointer': true }"
-          @click.prevent.stop="setDisplayType"
-        ></inputRightLock>
-        <inputRightUnlock
-          v-else
-          :stroke="datafromParent?.option?.error ? '#EA372A' : '#C8C8C8'"
-          :class="{ 'cursor-pointer': true }"
-          @click.prevent.stop="setDisplayType"
-        ></inputRightUnlock>
-      </div>
-    </template>
-  </div>
+      @mouseover="setMouseOver(true)"
+      @mouseleave="setMouseOver(false)"
+      :style="{ ...datafromParent?.option?.style }"
+    >
+      <input
+        :class="{
+          'font-small': datafromParent?.option?.smallType,
+          'font-error': datafromParent?.option?.error,
+          'font-disabled': datafromParent?.option?.disabled,
+        }"
+        :placeholder="datafromParent?.option?.placeholder"
+        :disabled="datafromParent?.option?.disabled"
+        :maxlength="datafromParent?.option?.max"
+        :minlength="datafromParent?.option?.min"
+        :type="displayType"
+        v-model="inputValue"
+        autocomplete="false"
+        @input="setKeyAction"
+        @focus="setInputFocus(true)"
+        @focusout="setInputFocus(false)"
+        :style="{ ...datafromParent?.option?.textStyle }"
+      />
+      <template v-if="!datafromParent?.option?.disabled">
+        <div class="position-absolute">
+          <inputRightLock
+            v-if="displayType === PASSWORD"
+            :stroke="datafromParent?.option?.error ? '#EA372A' : '#C8C8C8'"
+            :class="{ 'cursor-pointer': true }"
+            @click.prevent.stop="setDisplayType"
+          ></inputRightLock>
+          <inputRightUnlock
+            v-else
+            :stroke="datafromParent?.option?.error ? '#EA372A' : '#C8C8C8'"
+            :class="{ 'cursor-pointer': true }"
+            @click.prevent.stop="setDisplayType"
+          ></inputRightUnlock>
+        </div>
+      </template>
+    </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped></style>

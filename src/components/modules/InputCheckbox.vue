@@ -20,41 +20,43 @@ const setCheckBoxStatus = (item: any, index: number) => {
 };
 </script>
 <template>
-  <div
-    :class="{
-      'check-box-area': true,
-      'add-gap': inputList?.length > 1,
-      'single-check': inputList?.length == 1,
-    }"
-    :style="datafromParent?.option?.containerStyle"
-  >
+  <ClientOnly>
     <div
-      :class="{ 'check-box-item': true }"
-      v-for="(item, index) in inputList"
-      @click="setCheckBoxStatus(item, index)"
+      :class="{
+        'check-box-area': true,
+        'add-gap': inputList?.length > 1,
+        'single-check': inputList?.length == 1,
+      }"
+      :style="datafromParent?.option?.containerStyle"
     >
       <div
-        v-if="!datafromParent?.option?.disabled"
-        class="check-box-can-active-item"
+        :class="{ 'check-box-item': true }"
+        v-for="(item, index) in inputList"
+        @click="setCheckBoxStatus(item, index)"
       >
-        <checkboxActive v-if="item.checked"></checkboxActive>
-        <checkboxDefault v-else></checkboxDefault>
-      </div>
-      <checkboxActiveDisabled
-        v-else-if="datafromParent?.option?.disabled && item.checked"
-      ></checkboxActiveDisabled>
-      <checkboxDisabled v-else></checkboxDisabled>
-      <div
-        v-if="item?.label"
-        :class="{
-          'check-box-label': true,
-          'small-type': datafromParent?.option?.smallType,
-        }"
-      >
-        {{ item.label }}
+        <div
+          v-if="!datafromParent?.option?.disabled"
+          class="check-box-can-active-item"
+        >
+          <checkboxActive v-if="item.checked"></checkboxActive>
+          <checkboxDefault v-else></checkboxDefault>
+        </div>
+        <checkboxActiveDisabled
+          v-else-if="datafromParent?.option?.disabled && item.checked"
+        ></checkboxActiveDisabled>
+        <checkboxDisabled v-else></checkboxDisabled>
+        <div
+          v-if="item?.label"
+          :class="{
+            'check-box-label': true,
+            'small-type': datafromParent?.option?.smallType,
+          }"
+        >
+          {{ item.label }}
+        </div>
       </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped>

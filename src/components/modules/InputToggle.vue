@@ -41,29 +41,31 @@ const changeStatus = () => {
 </script>
 
 <template>
-  <div class="slider-main-area">
-    <div v-if="datafromParent?.value[0].label">
-      {{ datafromParent?.value[0].label }}
-    </div>
+  <ClientOnly>
+    <div class="slider-main-area">
+      <div v-if="datafromParent?.value[0].label">
+        {{ datafromParent?.value[0].label }}
+      </div>
 
-    <div
-      :class="{
-        'slider-container': true,
-        [className]: className,
-        disabled: disabled,
-        error: error,
-        'is-active': isActive,
-      }"
-      :disabled="disabled"
-      :style="style"
-      :tabindex="datafromParent?.tabindex"
-    >
-      <div :class="slider" @click="changeStatus()"></div>
+      <div
+        :class="{
+          'slider-container': true,
+          [className]: className,
+          disabled: disabled,
+          error: error,
+          'is-active': isActive,
+        }"
+        :disabled="disabled"
+        :style="style"
+        :tabindex="datafromParent?.tabindex"
+      >
+        <div :class="slider" @click="changeStatus()"></div>
+      </div>
+      <div v-if="datafromParent?.value[1].label">
+        {{ datafromParent?.value[1].label }}
+      </div>
     </div>
-    <div v-if="datafromParent?.value[1].label">
-      {{ datafromParent?.value[1].label }}
-    </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped>

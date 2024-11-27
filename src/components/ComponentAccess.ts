@@ -8,7 +8,7 @@ import {
   InputRadio,
   InputSelectBox,
   InputToggle,
-} from "./index"; //각종 input 컴포넌트들
+} from "./modules/index"; //각종 input 컴포넌트들
 
 import { home, manage } from "./menus";
 

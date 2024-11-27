@@ -113,62 +113,67 @@ const setSelectItem = (item: any, index: number) => {
 };
 </script>
 <template>
-  <div
-    :style="{ position: 'relative', ...datafromParent?.option?.containerStyle }"
-  >
+  <ClientOnly>
     <div
-      :class="{
-        'input-area-no-padding': true,
-        [datafromParent?.option?.class]: datafromParent?.option?.class,
-        'input-focus': isInputFocus,
-        'input-error': datafromParent?.option?.error,
-        'input-error-mouseover': datafromParent?.option?.error && isMouseOver,
-        'input-disabled': datafromParent?.option?.disabled,
-        'cursor-pointer': true,
+      :style="{
+        position: 'relative',
+        ...datafromParent?.option?.containerStyle,
       }"
-      @mouseover="setMouseOver(true)"
-      @mouseleave="setMouseOver(false)"
-      @click="runDropBoxItem()"
-      :style="{ ...datafromParent?.option?.style }"
-      ref="previewElement"
     >
-      <!-- 선택된 데이터 표출   -->
       <div
         :class="{
-          'prev-item': true,
-          'font-error': datafromParent?.option?.error,
-          'not-selected': selectedItem.index == -1,
+          'input-area-no-padding': true,
+          [datafromParent?.option?.class]: datafromParent?.option?.class,
+          'input-focus': isInputFocus,
+          'input-error': datafromParent?.option?.error,
+          'input-error-mouseover': datafromParent?.option?.error && isMouseOver,
+          'input-disabled': datafromParent?.option?.disabled,
+          'cursor-pointer': true,
         }"
+        @mouseover="setMouseOver(true)"
+        @mouseleave="setMouseOver(false)"
+        @click="runDropBoxItem()"
+        :style="{ ...datafromParent?.option?.style }"
+        ref="previewElement"
       >
-        <div style="user-select: none">{{ selectedItem.label }}</div>
-        <upIcon v-if="isRun"></upIcon>
-        <downIcon v-else></downIcon>
+        <!-- 선택된 데이터 표출   -->
+        <div
+          :class="{
+            'prev-item': true,
+            'font-error': datafromParent?.option?.error,
+            'not-selected': selectedItem.index == -1,
+          }"
+        >
+          <div style="user-select: none">{{ selectedItem.label }}</div>
+          <upIcon v-if="isRun"></upIcon>
+          <downIcon v-else></downIcon>
+        </div>
+      </div>
+      <div
+        v-if="isRun"
+        class="select-box-container"
+        :style="{ width: `${previewElement?.clientWidth}px` }"
+      >
+        <div class="select-box-drop-down-area">
+          <ClientOnly>
+            <PerfectScrollbar ref="perfectScroll" :id="myScrollId">
+              <div
+                v-for="(item, idx) in inputList"
+                :class="{
+                  'select-box-item': true,
+                  selected: item.selected,
+                  'small-type': datafromParent?.option?.smallType,
+                }"
+                @click="setSelectItem(item, idx)"
+              >
+                <div>{{ item.label }}</div>
+              </div>
+            </PerfectScrollbar>
+          </ClientOnly>
+        </div>
       </div>
     </div>
-    <div
-      v-if="isRun"
-      class="select-box-container"
-      :style="{ width: `${previewElement?.clientWidth}px` }"
-    >
-      <div class="select-box-drop-down-area">
-        <ClientOnly>
-          <PerfectScrollbar ref="perfectScroll" :id="myScrollId">
-            <div
-              v-for="(item, idx) in inputList"
-              :class="{
-                'select-box-item': true,
-                selected: item.selected,
-                'small-type': datafromParent?.option?.smallType,
-              }"
-              @click="setSelectItem(item, idx)"
-            >
-              <div>{{ item.label }}</div>
-            </div>
-          </PerfectScrollbar>
-        </ClientOnly>
-      </div>
-    </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped>
