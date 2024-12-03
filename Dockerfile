@@ -1,5 +1,5 @@
-#docker build -t finit-s-front .
-#docker run -d --name finit-s-front -p 80:80 finit-s-front    // 외부:내부
+#docker build -t 이름 .
+#docker run -d --name 이름 -p 80:80 이름    // 외부:내부
 # 프로젝트의 빌드된 파일만 복사
 # 빌드 단계: 애플리케이션을 빌드하기 위한 환경 설정
 FROM node:22.9.0-alpine AS build-stage
