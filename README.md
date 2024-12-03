@@ -1,10 +1,25 @@
-# Nuxt 3 Minimal Starter
+# nuxtjs 프로젝트 입니다.
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+### 1. 개발환경
+```Javascript & Vite & Vuejs & Nuxtjs
+ * 개발 툴 : Visual Studio Code
+ * 언어, 라이브러리, 프레임워크 : Javascript, Typescript, Vuejs(3), Nuxtjs(3), Tailwind, nuxt-auth
+ * 로그인 및 인증 : JWT, Nuxt 세션
+ * 네트워크 : http
+ * (개발) API 연동 : nitro 기반 proxy + fetch(향후 변경 가능)
+ * (운영) API 연동 : fetch
+ * 의존성 관리 : npm(yarn)
+ * 응답 테스트 : mock
+```
 
-## Setup
+### 2. 기타 주요 라이브러리
 
-Make sure to install the dependencies:
+```javascript
+* dayjs : 날짜 관련된 라이브러리 입니다.
+* pinia : 상태관련 라이브러리 입니다.
+* chartjs : 차트 라이브러리 입니다.
+```
+### 3. 설치(Setup)
 
 ```bash
 # npm
@@ -20,9 +35,7 @@ yarn install
 bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+### 4. 개발모드(Development Server)
 
 ```bash
 # npm
@@ -38,9 +51,7 @@ yarn dev
 bun run dev
 ```
 
-## Production
-
-Build the application for production:
+### 5. 빌드(Production)
 
 ```bash
 # npm
@@ -55,21 +66,3 @@ yarn build
 # bun
 bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
