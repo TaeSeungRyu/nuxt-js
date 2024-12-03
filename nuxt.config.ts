@@ -10,12 +10,6 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { charset: "utf-8" },
       ],
-      link: [
-        {
-          rel: "stylesheet",
-          href: "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css",
-        },
-      ],
       title: "타이틀",
     },
     pageTransition: {
@@ -23,18 +17,20 @@ export default defineNuxtConfig({
       mode: "out-in", // default
     },
   },
+
   builder: "vite",
   srcDir: "src/",
   pages: true,
-  ssr: !true,
+  ssr: true,
   devtools: { enabled: !true },
+
   experimental: {
     renderJsonPayloads: false,
   },
+
   modules: [
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
-    "@nuxt-alt/proxy",
     "nuxt-auth-utils",
     "vue3-perfect-scrollbar/nuxt",
     "@nuxtjs/tailwindcss",
@@ -47,19 +43,16 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       NUXT_PORT: Number(process.env.NUXT_PORT) || 3000,
+      apiBase: process.env.SERVER_API_URL,
     },
     session: {
-      maxAge: 60 * 30 * 1, // 30분
+      maxAge: 60 * 60 * 24 * 1,
+      name: "def-ss",
     },
   },
-  // components: {
-  //   dirs: ["~/components"],
-  //   global: true,
-  // },
   pinia: {
     storesDirs: ["~/stores/**"],
   },
-
   nitro: {
     routeRules: {
       "/_nuxt/**": {
@@ -71,25 +64,12 @@ export default defineNuxtConfig({
       gzip: true,
     },
   },
-  css: ["~/assets/global.scss", "~/assets/global-tailwind.css"], //
-  proxy: {
-    proxies: {
-      "/serverApi": {
-        target: process.env.SERVER_API_URL,
-        changeOrigin: true,
-        agent: false,
-        rewrite: (path: string) => {
-          console.log("path:", path);
-          return path.replace(/^\/serverApi/, "");
-        },
-      },
-    },
-  },
+
+  //
+  css: ["~/assets/global.scss", "~/assets/global-tailwind.css"],
   vite: {
     vue: {
-      script: {
-        propsDestructure: true,
-      },
+      
     },
     resolve: {
       alias: {
@@ -110,5 +90,6 @@ export default defineNuxtConfig({
     },
     plugins: [svgLoader()],
   },
-  compatibilityDate: "2024-10-18",
+
+  compatibilityDate: "2024-12-03",
 });
