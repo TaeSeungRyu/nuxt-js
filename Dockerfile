@@ -16,9 +16,18 @@ RUN yarn install --production
 
 # 소스 코드 복사: 현재 디렉토리의 모든 파일을 작업 디렉토리로 복사
 COPY . .
+COPY .env /app/.env
+
 
 # 애플리케이션 빌드: 소스 코드를 빌드하여 배포 가능한 상태로 만듦
 RUN yarn build
+
+# 빌드 완료 후 불필요한 파일 삭제
+RUN rm -rf /app/node_modules/.cache \
+           /app/.nuxt/dist/client \
+           /app/public \
+           /app/tests
+
 
 # 실행 단계: 빌드된 애플리케이션을 실행하기 위한 환경 설정
 FROM node:22.9.0-alpine

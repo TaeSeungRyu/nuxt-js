@@ -1,6 +1,9 @@
 import { ofetch } from "ofetch";
 import { getRequestURL, readBody } from "h3";
 
+import { setCookie } from "h3";
+import { setUserSessionCookieType } from "../util";
+
 export default defineEventHandler(async (event) => {
   const currentUrl = getRequestURL(event);
   //const session = getUserSession(event);
@@ -17,14 +20,13 @@ export default defineEventHandler(async (event) => {
         ...event.headers,
       },
       body: JSON.stringify(params),
-    });
-
+    }).catch((e) => e);
+    console.log("data", res);
     if (res?.success) {
-      //console.log("data", res.data);
       // 토큰을 저장합니다.
       //console.log(res.data.accessToken);
     }
-    await setUserSession(event, {
+    await setUserSessionCookieType(event, {
       user: {
         name: res?.data?.name,
         role: res?.data?.role,
@@ -33,6 +35,7 @@ export default defineEventHandler(async (event) => {
       },
       secure: res?.data?.accessToken,
     });
+
     return {
       aaa: 1234,
       response: res,
